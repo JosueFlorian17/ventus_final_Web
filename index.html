@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Radiación Solar y Velocidad del Viento</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- jsPDF -->
+</head>
+<body>
+
+<header>
+    <h1>Monitor de Radiación Solar y Velocidad del Viento</h1>
+</header>
+
+<section id="real-time-data">
+    <h2>Datos en Tiempo Real</h2>
+    <div class="data-panel">
+        <div>
+            <h3>Radiación Solar</h3>
+            <p><span id="solar-radiation">0</span> W/m²</p>
+        </div>
+        <div>
+            <h3>Velocidad del Viento</h3>
+            <p><span id="wind-speed">0</span> m/s</p>
+        </div>
+    </div>
+    <canvas id="realTimeChart" width="400" height="200"></canvas>
+    <canvas id="windSpeedChart" width="400" height="200"></canvas>
+</section>
+
+<section id="historical-graphs">
+    <h2>Gráficas Históricas y Tablas</h2>
+
+    <!-- Filtro de Fecha -->
+    <div id="date-filter" style="text-align: center; margin-bottom: 20px;">
+        <label for="date-picker" style="font-size: 16px;">Selecciona una fecha:</label>
+        <input type="date" id="date-picker" style="padding: 8px; font-size: 16px; margin-left: 10px; border: 1px solid #ddd; border-radius: 5px;">
+        <button onclick="filterDataByDate()" style="background-color: #007BFF; color: white; padding: 8px 15px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Filtrar</button>
+    </div>
+
+    <div class="historical-table">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Fecha y Hora</th>
+                    <th>Radiación Solar (W/m²)</th>
+                    <th>Velocidad del Viento (m/s)</th>
+                </tr>
+            </thead>
+            <tbody id="historical-table-body">
+                <!-- Datos históricos aparecerán aquí -->
+            </tbody>
+        </table>
+    </div>
+    <canvas id="solarGraph" width="400" height="200"></canvas>
+    <canvas id="windGraph" width="400" height="200"></canvas>
+</section>
+
+
+
+
+<section id="evaluation">
+    <h2>Estado de Evaluación</h2>
+    <button id="evaluationButton" style="background-color: red; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; font-size: 16px;" onclick="toggleStatus()">Condiciones no aptas para generación de electricidad</button>
+</section>
+
+<section id="download-section">
+    <h2>Descargar Datos</h2>
+    <button id="downloadButton" style="background-color: #008000; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; font-size: 16px;">Descargar Datos</button>
+
+    <!-- Dropdown de formatos -->
+    <div class="dropdown" style="position: relative; display: inline-block;">
+        <button id="dropdownButton" style="background-color: #00B5E2; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; font-size: 16px;">Elegir formato</button>
+        <div id="dropdownMenu" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;">
+            <button onclick="downloadAsCSV()" style="background-color: white; color: black; padding: 10px; width: 100%; border: none; text-align: left;">CSV</button>
+            <button onclick="downloadAsPNG()" style="background-color: white; color: black; padding: 10px; width: 100%; border: none; text-align: left;">PNG</button>
+            <button onclick="downloadAsPDF()" style="background-color: white; color: black; padding: 10px; width: 100%; border: none; text-align: left;">PDF</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Proyecto Solar y Eólico</p>
+</footer>
+
+<script src="scripts.js"></script>
+
+</body>
+</html>
